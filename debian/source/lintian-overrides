@@ -1,0 +1,5 @@
+python-beautifulsoup source: file-without-copyright-information
+python-beautifulsoup source: no-debian-changes
+python-beautifulsoup source: source-contains-prebuilt-windows-binary
+python-beautifulsoup source: source-is-missing
+python-beautifulsoup source: source-package-encodes-python-version
