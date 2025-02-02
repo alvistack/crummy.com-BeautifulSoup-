@@ -1,5 +1,5 @@
 # encoding: utf-8
-from __future__ import annotations
+
 
 # Use of this source code is governed by the MIT license.
 __license__ = "MIT"
@@ -330,7 +330,7 @@ class LXMLTreeBuilderForXML(TreeBuilder):
         new_attrs: Dict[Union[str, NamespacedAttribute], str] = (
             self.attribute_dict_class()
         )
-        for k, v in attrs.items():
+        for k, v in list(attrs.items()):
             assert isinstance(k, str)
             assert isinstance(v, str)
             new_attrs[k] = v

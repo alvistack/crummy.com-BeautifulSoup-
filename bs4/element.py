@@ -1,4 +1,4 @@
-from __future__ import annotations
+
 
 # Use of this source code is governed by the MIT license.
 __license__ = "MIT"
@@ -1683,7 +1683,7 @@ class Tag(PageElement):
                 # Make sure that the values of any multi-valued
                 # attributes (e.g. when a Tag is copied) are stored in
                 # new lists.
-                for k, v in attrs.items():
+                for k, v in list(attrs.items()):
                     if isinstance(v, list):
                         v = v.__class__(v)
                     self.attrs[k] = v

@@ -92,8 +92,8 @@ BAD_DOCUMENT: str = """A bare string
 <div><div id="1">\n <a href="link1">This link is never closed.\n</div>\n<div id="2">\n <div id="3">\n   <a href="link2">This link is closed.</a>\n  </div>\n</div></div>
 <div>This document contains a <!DOCTYPE surprise>surprise doctype</div>
 <div><a><B><Cd><EFG>Mixed case tags are folded to lowercase</efg></CD></b></A></div>
-<div><our\u2603>Tag name contains Unicode characters</our\u2603></div>
-<div><a \u2603="snowman">Attribute name contains Unicode characters</a></div>
+<div><our\\u2603>Tag name contains Unicode characters</our\\u2603></div>
+<div><a \\u2603="snowman">Attribute name contains Unicode characters</a></div>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 """
 
@@ -730,7 +730,7 @@ Hello, world!
         # not.
         self.assert_soup(
             "<p>&bull; AT&T is in the s&p 500</p>",
-            "<p>\u2022 AT&amp;T is in the s&amp;p 500</p>",
+            "<p>\\u2022 AT&amp;T is in the s&amp;p 500</p>",
         )
 
     def test_apos_entity(self):

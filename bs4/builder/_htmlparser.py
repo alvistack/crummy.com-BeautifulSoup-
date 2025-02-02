@@ -1,6 +1,6 @@
 # encoding: utf-8
 """Use the HTMLParser library to parse HTML files that aren't too bad."""
-from __future__ import annotations
+
 
 # Use of this source code is governed by the MIT license.
 __license__ = "MIT"

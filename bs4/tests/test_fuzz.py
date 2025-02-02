@@ -156,7 +156,7 @@ class TestFuzz(object):
     )
     def test_html5lib_parse_errors_without_css(self, filename):
         markup = self.__markup(filename)
-        print(BeautifulSoup(markup, "html5lib").encode())
+        print((BeautifulSoup(markup, "html5lib").encode()))
 
     # This class of error represents problems with html5lib's parser,
     # not Beautiful Soup. I use

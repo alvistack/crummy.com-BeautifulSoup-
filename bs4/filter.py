@@ -1,4 +1,4 @@
-from __future__ import annotations
+
 from collections import defaultdict
 import re
 from typing import (
@@ -369,7 +369,7 @@ class SoupStrainer(ElementFilter):
             attrs = {"class": attrs}
 
         for attrdict in attrs, kwargs:
-            for attr, value in attrdict.items():
+            for attr, value in list(attrdict.items()):
                 if attr == "class_" and attrdict is kwargs:
                     # If you pass in 'class_' as part of kwargs, it's
                     # because class is a Python reserved word. If you
@@ -527,7 +527,7 @@ class SoupStrainer(ElementFilter):
         # If there are attribute rules for a given attribute, at least
         # one of them must match. If there are rules for multiple
         # attributes, each attribute must have at least one match.
-        for attr, rules in self.attribute_rules.items():
+        for attr, rules in list(self.attribute_rules.items()):
             attr_value = tag.get(attr, None)
             this_attr_match = self._attribute_match(attr_value, rules)
             if not this_attr_match:
@@ -611,7 +611,7 @@ class SoupStrainer(ElementFilter):
         # match.
         if attrs is None:
             attrs = AttributeDict()
-        for attr, rules in self.attribute_rules.items():
+        for attr, rules in list(self.attribute_rules.items()):
             attr_value = attrs.get(attr)
             if not self._attribute_match(attr_value, rules):
                 return False

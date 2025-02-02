@@ -22,7 +22,7 @@ class TestUnicodeDammit(object):
     @pytest.mark.parametrize(
         "smart_quotes_to,expect_converted",
         [
-            (None, "\u2018\u2019\u201c\u201d"),
+            (None, "\\u2018\\u2019\\u201c\\u201d"),
             ("xml", "&#x2018;&#x2019;&#x201C;&#x201D;"),
             ("html", "&lsquo;&rsquo;&ldquo;&rdquo;"),
             ("ascii", "''" + '""'),
@@ -49,7 +49,7 @@ class TestUnicodeDammit(object):
         hebrew = b"\xed\xe5\xec\xf9"
         dammit = UnicodeDammit(hebrew, ["iso-8859-8"])
         assert dammit.original_encoding.lower() == "iso-8859-8"
-        assert dammit.unicode_markup == "\u05dd\u05d5\u05dc\u05e9"
+        assert dammit.unicode_markup == "\\u05dd\\u05d5\\u05dc\\u05e9"
 
     def test_dont_see_smart_quotes_where_there_are_none(self):
         utf_8 = b"\343\202\261\343\203\274\343\202\277\343\202\244 Watch"
@@ -129,7 +129,7 @@ class TestEncodingDetector(object):
             bs4.dammit._chardet_dammit = noop
             dammit = UnicodeDammit(doc)
             assert True is dammit.contains_replacement_characters
-            assert "\ufffd" in dammit.unicode_markup
+            assert "\\ufffd" in dammit.unicode_markup
 
             soup = BeautifulSoup(doc, "html.parser")
             assert soup.contains_replacement_characters
@@ -291,7 +291,7 @@ class TestEntitySubstitution(object):
         [
             # Basic case. Unicode characters corresponding to named
             # HTML entites are substituted; others are not.
-            ("foo\u2200\N{SNOWMAN}\u00f5bar", "foo&forall;\N{SNOWMAN}&otilde;bar"),
+            ("foo\\u2200\N{SNOWMAN}\\u00f5bar", "foo&forall;\N{SNOWMAN}&otilde;bar"),
             # MS smart quotes are a common source of frustration, so we
             # give them a special test.
             ("‘’foo“”", "&lsquo;&rsquo;foo&ldquo;&rdquo;"),
@@ -305,11 +305,11 @@ class TestEntitySubstitution(object):
             # A few spot checks of our ability to recognize
             # special character sequences and convert them
             # to named entities.
-            ("&models;", "\u22a7"),
-            ("&Nfr;", "\U0001d511"),
-            ("&ngeqq;", "\u2267\u0338"),
+            ("&models;", "\\u22a7"),
+            ("&Nfr;", "\\U0001d511"),
+            ("&ngeqq;", "\\u2267\\u0338"),
             ("&not;", "\xac"),
-            ("&Not;", "\u2aec"),
+            ("&Not;", "\\u2aec"),
             # We _could_ convert | to &verbarr;, but we don't, because
             # | is an ASCII character.
             ("|" "|"),
@@ -330,11 +330,11 @@ class TestEntitySubstitution(object):
         # Some HTML5 entities correspond either to a single-character
         # Unicode sequence _or_ to the same character plus U+FE00,
         # VARIATION SELECTOR 1. We can handle this.
-        data = "fjords \u2294 penguins"
+        data = "fjords \\u2294 penguins"
         markup = "fjords &sqcup; penguins"
         assert self.sub.substitute_html(data) == markup
 
-        data = "fjords \u2294\ufe00 penguins"
+        data = "fjords \\u2294\\ufe00 penguins"
         markup = "fjords &sqcups; penguins"
         assert self.sub.substitute_html(data) == markup
 

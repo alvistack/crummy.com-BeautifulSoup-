@@ -92,14 +92,14 @@ class Demonstration(object):
         return uniform_results
 
     def dump(self):
-        print("%s: %s" % ("Markup".rjust(13), self.markup))
-        for parser, output in self.results.items():
-            print("%s: %s" % (parser.rjust(13), output))
+        print(("%s: %s" % ("Markup".rjust(13), self.markup)))
+        for parser, output in list(self.results.items()):
+            print(("%s: %s" % (parser.rjust(13), output)))
 
 different_results = []
 uniform_results = []
 
-print("= Testing the following parsers: %s =" % ", ".join(parsers))
+print(("= Testing the following parsers: %s =" % ", ".join(parsers)))
 print()
 
 input_file = sys.stdin
